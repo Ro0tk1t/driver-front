@@ -14,6 +14,8 @@
 
 ## 运行
 
+在 `config.ts` 里配置后端地址
+
 启动前端项目： `pnpm run dev`
 
 启动后端项目： [https://github.com/Ro0tk1t/driver-back](https://github.com/Ro0tk1t/driver-back)

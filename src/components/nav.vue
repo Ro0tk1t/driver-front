@@ -4,6 +4,8 @@ import { useRouter } from 'vue-router'
 import { ElImage, ElMessage } from 'element-plus'
 import { Icon } from '@iconify/vue';
 
+import { projAddr } from "../config";
+
 const router = useRouter()
 const g = inject('g')
 const activeIndex = ref('1')
@@ -16,6 +18,9 @@ const goIndex = () => {
 }
 const goLogin = () => {
   router.push('/login')
+}
+const goGithub = () => {
+  window.open(projAddr, 'blank')
 }
 const goRegister = () => {
   router.push('/register')
@@ -58,7 +63,7 @@ const logout = () => {
       <Icon icon="line-md:light-dark-loop" />
     </el-menu-item>
     <el-menu-item index="5">
-      <Icon icon="pajamas:github" />
+      <Icon icon="pajamas:github" @click="goGithub" />
     </el-menu-item>
     <el-menu-item index="6">
       <p v-if="!loc.token" @click="goLogin">登录</p>
