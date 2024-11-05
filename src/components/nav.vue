@@ -49,7 +49,7 @@ const logout = () => {
     <el-menu-item index="1">
       <RouterLink to="/">首页</RouterLink>
     </el-menu-item>
-    <el-menu-item index="2">帮助</el-menu-item>
+    <el-menu-item index="2" @click="goHelp">帮助</el-menu-item>
     <el-sub-menu index="3">
       <template #title>
         <Icon icon="ooui:language" />

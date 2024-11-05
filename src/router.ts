@@ -1,3 +1,4 @@
+import component from 'element-plus/es/components/tree-select/src/tree-select-option.mjs'
 import { createWebHistory, createRouter } from 'vue-router'
 
 const routes = [
@@ -5,6 +6,11 @@ const routes = [
     path: '/',
     name: 'index',
     component: () => import('./components/index.vue')
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: () => import('./components/help.vue')
   },
   {
     path: '/login',
