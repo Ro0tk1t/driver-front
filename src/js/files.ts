@@ -42,3 +42,5 @@ export async function DownloadFile(path: string, filename: string) {
         console.error(err)
     }
 }
+
+export async function shareFiles(){}
