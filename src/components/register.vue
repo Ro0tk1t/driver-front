@@ -52,6 +52,12 @@ const submit = (formEl: FormInstance | undefined) => {
                         })
                     }
                     console.log(res.data)
+                    if (res.data.code === 200){
+                        ElMessage({message: '注册成功', type: 'success'})
+                        setTimeout(function (){
+                            window.location = '/login'
+                        }, 888)
+                    }
                 }).catch(function (error) {
                     ElMessageBox.alert(error.response.data.message, 'Title', {
                         // if you want to disable its autofocus

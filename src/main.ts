@@ -14,5 +14,5 @@ axios.defaults.baseURL = baseURL
 //axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 const app = createApp(App).use(router)
-app.config.globalProperties.serverAddr = 'http://192.168.206.128:8000'
+app.config.globalProperties.serverAddr = baseURL
 app.mount('#app')

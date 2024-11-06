@@ -28,12 +28,18 @@ const search = () => {
         // TODO
     }
 }
-const flushPath = (i) => {
+const flushPath = async (i: any) => {
     console.log(i)
     console.log(pathParts.value[i])
     pathParts.value = pathParts.value.slice(0, i + 1)
     paths = pathParts.value.length > 0 ? `/${pathParts.value.join('/')}/` : '/'
-    console.log(paths)
+    console.log(paths);
+    try {
+        let ret = await getPathFiles()
+        flushFileList.value = !flushFileList.value
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 const uploadList = ref<UploadFiles>([])
@@ -141,6 +147,7 @@ const getPathFiles = async () => {
         console.log(ret)
         tableFile = ret.data.fileInfos
         totalFile.value = Number(ret.data.total)
+        return tableFile
     } catch (err) {
         //ElMessage({ message: err.response.data.message })
     }
@@ -153,6 +160,7 @@ const totalFile = ref(0)
 //     { name: '2.jpg', size: 1024, time: "11111111" },
 // ]
 var tableFile: any[] = [];
+const flushFileList = ref(false);
 (async () => { await getPathFiles() })()
 
 const getSelectedTableData = () => {
@@ -214,7 +222,8 @@ const deleteAction = async (files: any) => {
             </el-popover>
         </el-col>
     </el-row>
-    <el-table v-model="tableFile" :data="tableFile" ref="tableRef" stripe style="width: 100%"
+    <!-- <el-table v-model="tableFile" :data="tableFile" ref="tableRef" stripe style="width: 100%" -->
+    <el-table v-model="tableFile" :data="tableFile" :key="flushFileList" stripe style="width: 100%"
         @selection-change="getSelectedTableData">
         <el-table-column type="selection" width="55" />
         <el-table-column prop="name" label="文件名" min-width="280">
