@@ -14,6 +14,9 @@ importers:
       '@iconify/vue':
         specifier: ^4.1.2
         version: 4.1.2(vue@3.4.38(typescript@5.5.4))
+      '@imengyu/vue3-context-menu':
+        specifier: ^1.4.3
+        version: 1.4.3
       axios:
         specifier: ^1.7.7
         version: 1.7.7
@@ -23,6 +26,9 @@ importers:
       element-plus:
         specifier: ^2.8.1
         version: 2.8.1(vue@3.4.38(typescript@5.5.4))
+      pnpm:
+        specifier: ^9.13.2
+        version: 9.13.2
       vue:
         specifier: ^3.4.37
         version: 3.4.38(typescript@5.5.4)
@@ -237,6 +243,9 @@ packages:
     resolution: {integrity: sha512-CQnYqLiQD5LOAaXhBrmj1mdL2/NCJvwcC4jtW2Z8ukhThiFkLDkutarTOV2trfc9EXqUqRs0KqXOL9pZ/IyysA==}
     peerDependencies:
       vue: '>=3'
+
+  '@imengyu/vue3-context-menu@1.4.3':
+    resolution: {integrity: sha512-W2rT+xllLSg+u/Z36jE+mrjzO8gCIw0YDDyBxywuASmwrBotU4deftW8Zz9GK/QEHBRNyV5nBINZJo2J257Wlg==}
 
   '@jridgewell/sourcemap-codec@1.5.0':
     resolution: {integrity: sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==}
@@ -684,6 +693,11 @@ packages:
   pkg-types@1.2.0:
     resolution: {integrity: sha512-+ifYuSSqOQ8CqP4MbZA5hDpb97n3E8SVWdJe+Wms9kj745lmd3b7EZJiqvmLwAlmRfjrI7Hi5z3kdBJ93lFNPA==}
 
+  pnpm@9.13.2:
+    resolution: {integrity: sha512-iMnDhkRQNQ5lozWHq4Aaz5RtfIFO0RNNpKkk9t9aISD9NrRqq2j3zR1BMUkRLVPH2zpBNmJM/QD/GEagxs70ig==}
+    engines: {node: '>=18.12'}
+    hasBin: true
+
   postcss@8.4.42:
     resolution: {integrity: sha512-hywKUQB9Ra4dR1mGhldy5Aj1X3MWDSIA1cEi+Uy0CjheLvP6Ual5RlwMCh8i/X121yEDLDIKBsrCQ8ba3FDMfQ==}
     engines: {node: ^10 || ^12 || >=14}
@@ -1089,6 +1103,8 @@ snapshots:
     dependencies:
       '@iconify/types': 2.0.0
       vue: 3.4.38(typescript@5.5.4)
+
+  '@imengyu/vue3-context-menu@1.4.3': {}
 
   '@jridgewell/sourcemap-codec@1.5.0': {}
 
@@ -1537,6 +1553,8 @@ snapshots:
       confbox: 0.1.7
       mlly: 1.7.1
       pathe: 1.1.2
+
+  pnpm@9.13.2: {}
 
   postcss@8.4.42:
     dependencies:
