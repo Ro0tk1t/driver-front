@@ -28,6 +28,14 @@ const goRegister = () => {
 const goHelp = () => {
   router.push('/help')
 }
+const goDriver = () => {
+  if (!loc.token){
+    ElMessage.error("请登录后使用")
+    setTimeout(()=>{router.push('/login')}, 300)
+    return
+  }
+  router.push('/files')
+}
 const setZHCN = () => {
   g.language = 'zh-cn'
 }
@@ -50,26 +58,27 @@ const logout = () => {
       <RouterLink to="/">首页</RouterLink>
     </el-menu-item>
     <el-menu-item index="2" @click="goHelp">帮助</el-menu-item>
-    <el-sub-menu index="3">
+    <el-menu-item index="3" @click="goDriver">网盘</el-menu-item>
+    <el-sub-menu index="4">
       <template #title>
         <Icon icon="ooui:language" />
       </template>
       <el-menu-item index="3-1" @click="setZHCN">中文</el-menu-item>
       <el-menu-item index="3-2" @click="setEN">English</el-menu-item>
     </el-sub-menu>
-    <el-menu-item index="4">
+    <el-menu-item index="5">
       <!-- <Icon icon="ls:dark" />
         <Icon icon="material-symbols:dark-mode-outline" /> -->
       <Icon icon="line-md:light-dark-loop" />
     </el-menu-item>
-    <el-menu-item index="5">
+    <el-menu-item index="6">
       <Icon icon="pajamas:github" @click="goGithub" />
     </el-menu-item>
-    <el-menu-item index="6">
+    <el-menu-item index="7">
       <p v-if="!loc.token" @click="goLogin">登录</p>
       <p v-else @click="logout">登出</p>
     </el-menu-item>
-    <el-menu-item index="7">
+    <el-menu-item index="8">
       <p v-if="!loc.token">
         <RouterLink to="register">注册</RouterLink>
       </p>
@@ -81,7 +90,7 @@ const logout = () => {
 </template>
 
 <style>
-.el-menu--horizontal>.el-menu-item:nth-child(2) {
+.el-menu--horizontal>.el-menu-item:nth-child(3) {
   margin-right: auto;
 }
 </style>
