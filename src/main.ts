@@ -15,6 +15,6 @@ axios.defaults.withCredentials = false
 axios.defaults.baseURL = baseURL
 //axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
-const app = createApp(App).use(router).use(ContextMenu)
+const app = createApp(App).use(ContextMenu).use(router)
 app.config.globalProperties.serverAddr = baseURL
 app.mount('#app')

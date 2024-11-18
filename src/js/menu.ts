@@ -18,8 +18,8 @@ const onContextMenu = (e : MouseEvent) => {
       { 
         label: "A submenu", 
         children: [
+          { label: "返回上一级" },
           { label: "新建文件夹" },
-          { label: "Item2" },
           { label: "Item3" },
         ]
       },
