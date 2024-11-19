@@ -1,7 +1,9 @@
 import ContextMenu from '@imengyu/vue3-context-menu'
+import { paths, createDir } from './files';
+import { ElMessage, ElMessageBox } from 'element-plus';
 
 
-const onContextMenu = (e : MouseEvent) => {
+const onContextMenu = (e: MouseEvent) => {
   //prevent the browser's default menu
   e.preventDefault();
   //show your menu
@@ -9,22 +11,29 @@ const onContextMenu = (e : MouseEvent) => {
     x: e.x,
     y: e.y,
     items: [
-      { 
-        label: "A menu item", 
+      {
+        label: "返回上级目录",
+        onClick: () => { }
+      },
+      {
+        label: "新建文件夹",
         onClick: () => {
-          alert("You click a menu item");
+          ElMessageBox.prompt('请输入文件夹名', 'Next', {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            inputPattern: /^[^<>:"/\\|?*]+$/,
+            inputErrorMessage: '非法文件夹名',
+          }).then(async ({value})=>{
+            let ret = await createDir(paths+'/'+value)
+            if (ret) {
+              console.log(value)
+            }
+            ElMessage.success(value)
+          }).catch()
         }
       },
-      { 
-        label: "A submenu", 
-        children: [
-          { label: "返回上一级" },
-          { label: "新建文件夹" },
-          { label: "Item3" },
-        ]
-      },
     ]
-  }); 
+  });
 }
 
 export default onContextMenu

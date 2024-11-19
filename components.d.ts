@@ -10,6 +10,8 @@ declare module 'vue' {
     Brad: typeof import('./src/components/brad.vue')['default']
     Bread: typeof import('./src/components/bread.vue')['default']
     Components: typeof import('./src/components/index.vue')['default']
+    ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
+    ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
