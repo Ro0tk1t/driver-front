@@ -4,7 +4,7 @@ import { Search, MoreFilled, House, UploadFilled, Upload, Finished } from '@elem
 import { formattedTime, formatFileSize, DownloadFile, deleteAction } from "../js/files"
 import { pathParts, flushPath, flushFileList, paths, tableFile, totalFile } from "../js/files"
 import { uploadList, headers, getSelectedTableData, search, searchContent } from "../js/files"
-import { onFileChange, handleExceed, handleRemove, beforeRemove } from "../js/files"
+import { onFileChange, handleExceed, handleRemove, beforeRemove, handleCellClick } from "../js/files"
 import { popref } from "../js/files"
 import onContextMenu from '../js/menu';
 
@@ -53,12 +53,12 @@ import onContextMenu from '../js/menu';
             </el-row>
             <!-- <el-table v-model="tableFile" :data="tableFile" ref="tableRef" stripe style="width: 100%" -->
             <el-table v-model="tableFile" :data="tableFile" :key="flushFileList" stripe style="width: 100%"
-                @selection-change="getSelectedTableData">
+                @selection-change="getSelectedTableData" @cell-click="handleCellClick">
                 <el-table-column type="selection" width="55" />
-                <el-table-column prop="name" label="文件名" min-width="280">
+                <el-table-column prop="name" label="文件名" min-width="280" click="test">
                     <template #default="scope">
                         <!-- 截取前面一段字符，tips悬浮提示完整字符 -->
-                        <el-tooltip :content="scope.row.name">
+                        <el-tooltip :content="scope.row.name" v-if="scope.row.name.length>30">
                             {{ scope.row.name.length > 30 ? scope.row.name.substring(0, 30) + " ..." : scope.row.name }}
                         </el-tooltip>
                     </template>

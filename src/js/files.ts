@@ -1,6 +1,7 @@
 import { ref, computed, resolveComponent } from 'vue'
 import { ElMessage, ElMessageBox, resultProps } from 'element-plus';
 import type { UploadProps, UploadFiles, UploadUserFile } from 'element-plus'
+import { Column } from 'element-plus/lib/components/index.js';
 import { Icon } from '@iconify/vue';
 
 import axios from 'axios';
@@ -141,7 +142,7 @@ export const beforeRemove: UploadProps['beforeRemove'] = (uploadFile, uploadFile
     )
 }
 // ---------------------------------------------------------------------
-const getPathFiles = async () => {
+export const getPathFiles = async () => {
     const query = {
         path: paths,
         page: 0,
@@ -190,10 +191,10 @@ export const deleteAction = async (files: any) => {
     }
 }
 
-export async function createDir(dirname: string): Promise<boolean> {
+export async function createDir(current: string, dirname: string): Promise<boolean> {
     // TODO: name check
     try {
-        const ret = await axios.post('/createDir', { dirname: dirname }, { headers: headers.value })
+        const ret = await axios.post('/createDir', { current: current, dirname: dirname }, { headers: headers.value })
         if (ret.status) {
             ElMessage.success('创建成功')
             return true
@@ -202,6 +203,26 @@ export async function createDir(dirname: string): Promise<boolean> {
         console.log(err)
     }
     return false
+}
+
+export async function handleCellClick(row: Object, column: Column, cell: Element, event: PointerEvent) {
+    // console.log(row);
+    // console.log(column);
+    // console.log(cell);
+    // console.log(event);
+    //如果规定点击某一列执行，利用column中的label属性
+    if (column.label === '文件名') {
+        if (row.type == 'directory') {
+
+            pathParts.value.push(row.name)
+            paths += `${row.name}/`
+            console.log(pathParts)
+            console.log(paths);
+            await getPathFiles()
+            flushFileList.value = !flushFileList.value
+
+        }
+    }
 }
 
 export function formattedTime(time: number): string {

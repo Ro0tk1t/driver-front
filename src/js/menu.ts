@@ -1,5 +1,5 @@
 import ContextMenu from '@imengyu/vue3-context-menu'
-import { paths, createDir } from './files';
+import { paths, createDir, getPathFiles } from './files';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 
@@ -23,10 +23,11 @@ const onContextMenu = (e: MouseEvent) => {
             cancelButtonText: 'Cancel',
             inputPattern: /^[^<>:"/\\|?*]+$/,
             inputErrorMessage: '非法文件夹名',
-          }).then(async ({value})=>{
-            let ret = await createDir(paths+'/'+value)
+          }).then(async ({ value }) => {
+            console.log(paths + value + '/')
+            let ret = await createDir(value, paths)
             if (ret) {
-              console.log(value)
+              await getPathFiles()
             }
             ElMessage.success(value)
           }).catch()
