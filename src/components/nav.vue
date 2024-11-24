@@ -4,12 +4,11 @@ import { useRouter } from 'vue-router'
 import { ElImage, ElMessage } from 'element-plus'
 import { Icon } from '@iconify/vue';
 
-import { projAddr } from "../config";
+import { projAddr, loc, isDark, toggleDark } from "../config";
 
 const router = useRouter()
 const g = inject('g')
 const activeIndex = ref('1')
-const loc = localStorage
 function handleSelect(key: string, keyPath: string) {
   console.log(key, keyPath);
 }
@@ -69,7 +68,7 @@ const logout = () => {
     <el-menu-item index="5">
       <!-- <Icon icon="ls:dark" />
         <Icon icon="material-symbols:dark-mode-outline" /> -->
-      <Icon icon="line-md:light-dark-loop" />
+      <Icon icon="line-md:light-dark-loop" @click="toggleDark()" />
     </el-menu-item>
     <el-menu-item index="6">
       <Icon icon="pajamas:github" @click="goGithub" />

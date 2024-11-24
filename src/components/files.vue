@@ -2,7 +2,7 @@
 import { Search, MoreFilled, House, UploadFilled, Upload, Finished } from '@element-plus/icons-vue'
 
 import { formattedTime, formatFileSize, DownloadFile, deleteAction } from "../js/files"
-import { pathParts, flushPath, flushFileList, paths, tableFile, totalFile } from "../js/files"
+import { pathParts, flushPath, flushFileList, paths, tableFile, tableRef, totalFile } from "../js/files"
 import { uploadList, headers, getSelectedTableData, search, searchContent } from "../js/files"
 import { onFileChange, handleExceed, handleRemove, beforeRemove, handleCellClick } from "../js/files"
 import { popref } from "../js/files"
@@ -52,7 +52,7 @@ import onContextMenu from '../js/menu';
                 </el-col>
             </el-row>
             <!-- <el-table v-model="tableFile" :data="tableFile" ref="tableRef" stripe style="width: 100%" -->
-            <el-table v-model="tableFile" :data="tableFile" :key="flushFileList" stripe style="width: 100%"
+            <el-table v-model="tableFile" :data="tableFile" ref="tableRef" :key="flushFileList" stripe style="width: 100%"
                 @selection-change="getSelectedTableData" @cell-click="handleCellClick">
                 <el-table-column type="selection" width="55" />
                 <el-table-column prop="name" label="文件名" min-width="280" click="test">

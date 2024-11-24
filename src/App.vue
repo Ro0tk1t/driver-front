@@ -4,6 +4,7 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
 
 import Nav from './components/nav.vue'
+import { isDark, toggleDark } from './config'
 //import HelloWorld from './components/HelloWorld.vue'
 //import Index from './components/index.vue'
 import Footer from './components/footer.vue'
@@ -24,22 +25,23 @@ const calc = (v: number) => {
 </script>
 
 <template>
-  <div class="HMF">
-    <el-container>
-      <el-header>
-        <Nav></Nav>
-      </el-header>
-      <el-main height="700px">
-        <!-- <Index></Index>
+  <!-- <UseDark v-slot="{ isDark, toggleDark }"> -->
+    <div class="HMF">
+      <el-container>
+        <el-header>
+          <Nav></Nav>
+        </el-header>
+        <el-main height="700px">
+          <!-- <Index></Index>
         <router-view></router-view> -->
-        <RouterView></RouterView>
-      </el-main>
-      <el-footer>
-        <Footer></Footer>
-      </el-footer>
-    </el-container>
-  </div>
-  <!-- <div>
+          <RouterView></RouterView>
+        </el-main>
+        <el-footer>
+          <Footer></Footer>
+        </el-footer>
+      </el-container>
+    </div>
+    <!-- <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
@@ -48,6 +50,7 @@ const calc = (v: number) => {
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" /> -->
+  <!-- </UseDark> -->
 </template>
 
 <style scoped>

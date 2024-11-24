@@ -1,5 +1,5 @@
 import ContextMenu from '@imengyu/vue3-context-menu'
-import { paths, createDir, getPathFiles } from './files';
+import { paths, createDir, getPathFiles, flushPath, onFileChange } from './files';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 
@@ -13,7 +13,9 @@ const onContextMenu = (e: MouseEvent) => {
     items: [
       {
         label: "返回上级目录",
-        onClick: () => { }
+        onClick: async () => {
+          await flushPath(-1)
+        }
       },
       {
         label: "新建文件夹",
@@ -29,8 +31,27 @@ const onContextMenu = (e: MouseEvent) => {
             if (ret) {
               await getPathFiles()
             }
-            ElMessage.success(value)
           }).catch()
+        }
+      },
+      {
+        label: "上传文件",
+        onClick: () => {
+          //await onFileChange()
+          ElMessage.warning("请使用右键菜单上传文件")
+          ElMessage.warning("TODO")
+        }
+      },
+      {
+        label: "刷新",
+        onClick: async () => {
+          await getPathFiles()
+        }
+      },
+      {
+        label: "分享",
+        onClick: async () => {
+          await shareFiles()
         }
       },
     ]

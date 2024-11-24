@@ -6,8 +6,9 @@ import { Icon } from '@iconify/vue';
 
 import axios from 'axios';
 import { Buffer } from 'buffer';
+import { get, post } from './utils';
 
-export let paths = '/path/fdsf/dfsfsdf/'
+export let paths = '/'
 export const pathParts = ref(paths.split('/').filter(Boolean))
 // const links = computed(() => {
 //     return pathParts.value.map((item, index) => {
@@ -63,8 +64,12 @@ const uploadChunk = async (file: any, fname: string, chunkIndex: any) => {
         const reader = new FileReader();
         reader.onload = (event) => {
             // 将读取的内容转换为 base64 编码
-            const base64Content = event.target.result;
-            resolve(base64Content);
+            if (event.target) {
+                const base64Content = event.target.result;
+                resolve(base64Content);
+            } else {
+                reject('Error reading file');
+            }
         };
         reader.onerror = (error) => {
             reject(error);
@@ -149,17 +154,18 @@ export const getPathFiles = async () => {
         pageSize: 10,
     }
     try {
-        const ret = await axios.get('/listFiles', { params: query, headers: headers.value })
+        const ret = await get('/listFiles', { params: query, headers: headers.value })
+        //const ret = await axios.get('/listFiles', { params: query, headers: headers.value })
         console.log(ret)
         tableFile = ret.data.fileInfos
         totalFile.value = Number(ret.data.total)
         return tableFile
-    } catch (err) {
-        //ElMessage({ message: err.response.data.message })
+    } catch (err: any) {
+        ElMessage({ message: err.response.data.message })
     }
 }
 const selectAll = ref(false)
-const tableRef = ref(null)
+export const tableRef = ref(null)
 export const totalFile = ref(0)
 // let tableFile = [
 //     { name: '1.jpg', size: 1024, time: "11111111" },
@@ -171,8 +177,10 @@ export const flushFileList = ref(false);
 
 export const getSelectedTableData = () => {
     //通过Element-Plus表格的getSelectionRows的方法，获取已选中的数据
-    let tableData = tableRef.value.getSelectionRows();
-    console.log("选中数据", tableData)
+    if (tableRef.value) {
+        let tableData = tableRef.value.getSelectionRows();
+        console.log("选中数据", tableData)
+    }
 };
 export const popref = ref(false)
 
@@ -192,15 +200,11 @@ export const deleteAction = async (files: any) => {
 }
 
 export async function createDir(current: string, dirname: string): Promise<boolean> {
-    // TODO: name check
-    try {
-        const ret = await axios.post('/createDir', { current: current, dirname: dirname }, { headers: headers.value })
-        if (ret.status) {
-            ElMessage.success('创建成功')
-            return true
-        }
-    } catch (err) {
-        console.log(err)
+    const ret = await post('/createDir', { current: current, dirname: dirname }, { headers: headers.value })
+    //const ret = await axios.post('/createDir', { current: current, dirname: dirname }, { headers: headers.value })
+    if (ret.status == 200) {
+        ElMessage.success('创建成功')
+        return true
     }
     return false
 }

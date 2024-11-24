@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const loc = localStorage
+import { loc } from "../config";
 </script>
 
 <template>  
