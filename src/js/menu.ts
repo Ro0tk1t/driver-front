@@ -2,7 +2,9 @@ import { ref, reactive } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus';
 import ContextMenu from '@imengyu/vue3-context-menu'
 import type { MenuOptions } from '@imengyu/vue3-context-menu';
+
 import { paths, createDir, getPathFiles, flushPath } from './files';
+import { isDark } from '../config';
 
 export const showMenu = ref(false)
 export const options = reactive<MenuOptions>({
@@ -18,6 +20,7 @@ export const onContextMenu1 = (e: MouseEvent) => {
   options.x = e.x;
   options.y = e.y;
   showMenu.value = true;
+  options.theme = isDark.value ? 'mac dark' : 'mac'
 };
 
 export async function newDir() {

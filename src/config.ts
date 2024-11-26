@@ -1,9 +1,4 @@
-import { useDark, useToggle } from '@vueuse/core'
-
-// FIXME
-export const isDark = useDark()
-export const toggleDark = useToggle(isDark)
-export { useDark }
+import { ref } from 'vue'
 
 export const loc = localStorage
 
@@ -14,3 +9,14 @@ export const projAddr = 'https://github.com/Ro0tk1t/driver-front'
 export async function resetToken() {
     loc.setItem('token', '')
 }
+
+export const isDark = ref(false);
+export const toggleDarkMode = () => {
+    isDark.value = !isDark.value;
+    const classList = document.documentElement.classList;
+    if (isDark.value) {
+        classList.add('dark');
+    } else {
+        classList.remove('dark');
+    }
+};

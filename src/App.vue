@@ -4,7 +4,6 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
 
 import Nav from './components/nav.vue'
-import { isDark, toggleDark } from './config'
 //import HelloWorld from './components/HelloWorld.vue'
 //import Index from './components/index.vue'
 import Footer from './components/footer.vue'

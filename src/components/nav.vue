@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import { ElImage, ElMessage } from 'element-plus'
 import { Icon } from '@iconify/vue';
 
-import { projAddr, loc, isDark, toggleDark } from "../config";
+import { projAddr, loc, toggleDarkMode } from "../config";
 
 const router = useRouter()
 const g = inject('g')
@@ -68,7 +68,7 @@ const logout = () => {
     <el-menu-item index="5">
       <!-- <Icon icon="ls:dark" />
         <Icon icon="material-symbols:dark-mode-outline" /> -->
-      <Icon icon="line-md:light-dark-loop" @click="toggleDark()" />
+      <Icon icon="line-md:light-dark-loop" @click="toggleDarkMode" />
     </el-menu-item>
     <el-menu-item index="6">
       <Icon icon="pajamas:github" @click="goGithub" />
