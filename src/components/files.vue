@@ -115,15 +115,15 @@ import { showMenu, options, onContextMenu1, newDir } from '../js/menu';
                 <span>新建文件夹</span>
             </context-menu-item>
             <context-menu-item label="upload file" @click="">
-                <el-upload v-model:file-list="uploadList" action="#" :headers="headers" :auto-upload="false" multiple
-                    :on-change="onFileChange" :on-remove="handleRemove" :before-remove="beforeRemove"
-                    :on-exceed="handleExceed">
-                    <el-button type="primary" size="small" circle>
+                <el-button type="primary" size="small" circle>
+                    <el-upload v-model:file-list="uploadList" action="#" :headers="headers" :auto-upload="false"
+                        multiple :on-change="onFileChange" :on-remove="handleRemove" :before-remove="beforeRemove"
+                        :on-exceed="handleExceed">
                         <el-icon>
                             <UploadFilled />
                         </el-icon>
-                    </el-button>
-                </el-upload>
+                    </el-upload>
+                </el-button>
                 <span>上传文件</span>
             </context-menu-item>
             <!-- <context-menu-item label="refrash" @click="getPathFiles" class="center-content"> -->

@@ -122,6 +122,7 @@ export const onFileChange: UploadProps['onChange'] = async (file, fileList) => {
             if (ret.status != 200) {
                 ElMessage.error("文件上传失败")
             }
+            fileList.splice(fileList.indexOf(file))
             await getPathFiles()
         }
     }
