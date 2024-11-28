@@ -1,4 +1,4 @@
-import { ref, computed, resolveComponent } from 'vue'
+import { h, ref, computed, resolveComponent } from 'vue'
 import { ElMessage, ElMessageBox, resultProps } from 'element-plus';
 import type { UploadProps, UploadFiles, UploadUserFile } from 'element-plus'
 import { Column } from 'element-plus/lib/components/index.js';
@@ -272,4 +272,56 @@ export async function DownloadFile(path: string, filename: string) {
     }
 }
 
-export async function shareFiles() { }
+export async function shareSingle(name: string) {
+    await createShare([name])
+}
+
+export async function createShare(names: string[]) {
+    console.log(names)
+    ElMessageBox.prompt('是否设置访问密码', 'Next', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        //inputPattern: /^[^<>:"/\\|?*]+$/,
+        inputErrorMessage: '未知错误',
+    }).then(async ({ value }) => {
+        try {
+            const ret = await post("/createShare", { path: paths, names: names, password: value }, { headers: headers.value })
+            ElMessageBox.confirm(
+                h('a', {href: 'ret.data.link'}, 
+                    ret.data.link,
+                ),
+                '分享链接：',
+                {
+                    confirmButtonText: 'OK',
+                    cancelButtonText: '复制到粘贴板',
+                    type: 'success',
+                    center: true,
+                }
+            ).catch(() => {
+                // TODO
+                ElMessage({
+                    type: 'success',
+                    message: '已复制到粘贴板',
+                })
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }).catch()
+}
+
+export async function getShare(id: string) {
+    try {
+        const ret = await get(`/getShare/${id}`, { headers: headers.value })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export async function saveShare() {
+    try {
+        const ret = await post("/saveShare", {}, { headers: headers.value })
+    } catch (err) {
+        console.log(err)
+    }
+}

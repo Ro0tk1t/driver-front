@@ -3,7 +3,8 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import ContextMenu from '@imengyu/vue3-context-menu'
 import type { MenuOptions } from '@imengyu/vue3-context-menu';
 
-import { paths, createDir, getPathFiles, flushPath } from './files';
+import { paths, createDir, getPathFiles, flushPath, tableRef } from './files';
+import { createShare } from './files';
 import { isDark } from '../config';
 
 export const showMenu = ref(false)
@@ -36,6 +37,10 @@ export async function newDir() {
       await getPathFiles()
     }
   }).catch()
+}
+
+export async function shareFromRight(){
+  createShare(tableRef.value.getSelectionRows().map(row => row.name))
 }
 
 const onContextMenu = (e: MouseEvent) => {
@@ -75,7 +80,7 @@ const onContextMenu = (e: MouseEvent) => {
       {
         label: "分享",
         onClick: async () => {
-          await shareFiles()
+          await shareFromRight()
         }
       },
     ]

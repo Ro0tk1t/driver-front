@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Back, Search, FolderAdd, Share, MoreFilled, House, UploadFilled, Upload, Refresh, Finished } from '@element-plus/icons-vue'
 
-import { formattedTime, formatFileSize, DownloadFile, deleteAction } from "../js/files"
+import { formattedTime, formatFileSize, DownloadFile, deleteAction, shareSingle } from "../js/files"
 import { pathParts, flushPath, flushFileList, getPathFiles, paths, tableFile, tableRef, totalFile } from "../js/files"
 import { uploadList, headers, getSelectedTableData, search, searchContent } from "../js/files"
 import { onFileChange, handleExceed, handleRemove, beforeRemove, handleCellClick } from "../js/files"
 import { popref } from "../js/files"
 import onContextMenu from '../js/menu';
-import { showMenu, options, onContextMenu1, newDir } from '../js/menu';
+import { showMenu, options, onContextMenu1, newDir, shareFromRight } from '../js/menu';
 
 </script>
 
@@ -74,7 +74,7 @@ import { showMenu, options, onContextMenu1, newDir } from '../js/menu';
                         {{ formatFileSize(scope.row.size) }}
                     </template>
                 </el-table-column>
-                <el-table-column fixed="right" label="操作" min-width="180">
+                <el-table-column fixed="right" label="操作" min-width="150">
                     <template #default="scope">
                         <el-dropdown placement="top-end">
                             <el-icon>
@@ -82,7 +82,7 @@ import { showMenu, options, onContextMenu1, newDir } from '../js/menu';
                             </el-icon>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item>分享</el-dropdown-item>
+                                    <el-dropdown-item @click="shareSingle(scope.row.name)">分享</el-dropdown-item>
                                     <el-dropdown-item @click="DownloadFile(paths, scope.row.name)">下载</el-dropdown-item>
                                     <el-dropdown-item>详情</el-dropdown-item>
                                     <el-dropdown-item @click="deleteAction([scope.row])">删除</el-dropdown-item>
@@ -135,7 +135,7 @@ import { showMenu, options, onContextMenu1, newDir } from '../js/menu';
                 </el-button>
                 <span>刷新</span>
             </context-menu-item>
-            <context-menu-item label="share">
+            <context-menu-item label="share" @click="shareFromRight">
                 <el-button type="primary" size="small" circle>
                     <el-icon>
                         <Share />

@@ -52,6 +52,7 @@ declare module 'vue' {
     Register: typeof import('./src/components/register.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Share: typeof import('./src/components/share.vue')['default']
     User: typeof import('./src/components/user.vue')['default']
   }
 }

@@ -32,6 +32,11 @@ const routes = [
     name: 'files',
     component: () => import('./components/files.vue')
   },
+  {
+    path: '/share/:id',
+    name: 'share',
+    component: () => import('./components/share.vue')
+  },
   // {
   //   path: '/:pathMatch(.*)*',
   //   name: '404',
