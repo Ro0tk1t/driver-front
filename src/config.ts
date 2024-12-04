@@ -10,6 +10,11 @@ export async function resetToken() {
     loc.setItem('token', '')
 }
 
+export const headers = ref({
+    // Authorization: localStorage.getItem('token')
+    Authorization: "Bearer " + loc.getItem('token')
+})
+
 export const isDark = ref(false);
 export const toggleDarkMode = () => {
     isDark.value = !isDark.value;

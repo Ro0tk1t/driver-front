@@ -8,6 +8,7 @@ import { createShare } from './files';
 import { isDark } from '../config';
 
 export const showMenu = ref(false)
+export const showShareMenu = ref(false)
 export const options = reactive<MenuOptions>({
   iconFontClass: 'iconfont',
   zIndex: 3,
@@ -37,6 +38,10 @@ export async function newDir() {
       await getPathFiles()
     }
   }).catch()
+}
+
+export async function move(){
+  // TODO
 }
 
 export async function shareFromRight(){
@@ -88,3 +93,20 @@ const onContextMenu = (e: MouseEvent) => {
 }
 
 export default onContextMenu
+
+
+export const shareOption = reactive<MenuOptions>({
+  iconFontClass: 'iconfont',
+  zIndex: 4,
+  //minWidth: 190,
+  maxWidth: 300,
+  x: 500,
+  y: 200,
+})
+export const onContextMenuShare = (e: MouseEvent) => {
+  e.preventDefault();
+  shareOption .x = e.x;
+  shareOption .y = e.y;
+  showShareMenu.value = true;
+  shareOption .theme = isDark.value ? 'mac dark' : 'mac'
+};

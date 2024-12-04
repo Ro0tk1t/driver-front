@@ -7,6 +7,7 @@ import { Icon } from '@iconify/vue';
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import { get, post } from './utils';
+import { headers } from '../config'
 
 export let paths = '/'
 export const pathParts = ref(paths.split('/').filter(Boolean))
@@ -50,10 +51,6 @@ export const flushPath = async (i: any) => {
 
 export const uploadList = ref<UploadFiles>([])
 const uploadingList = ref<UploadFiles>([])
-export const headers = ref({
-    // Authorization: localStorage.getItem('token')
-    Authorization: "Bearer " + localStorage.getItem('token')
-})
 const chunkSize = 1024 * 1024 * 3
 const uploadChunk = async (file: any, fname: string, chunkIndex: any) => {
     const fileForm = new FormData()
@@ -174,7 +171,6 @@ export const totalFile = ref(0)
 // ]
 export var tableFile: any[] = [];
 export const flushFileList = ref(false);
-(async () => { await getPathFiles() })()
 
 export const getSelectedTableData = () => {
     //通过Element-Plus表格的getSelectionRows的方法，获取已选中的数据
@@ -287,8 +283,9 @@ export async function createShare(names: string[]) {
         try {
             const ret = await post("/createShare", { path: paths, names: names, password: value }, { headers: headers.value })
             ElMessageBox.confirm(
-                h('a', {href: 'ret.data.link'}, 
-                    ret.data.link,
+                h(
+                    'a', { href: ret.data.message },
+                    ret.data.message,
                 ),
                 '分享链接：',
                 {

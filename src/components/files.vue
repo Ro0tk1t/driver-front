@@ -1,14 +1,21 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router"
 import { Back, Search, FolderAdd, Share, MoreFilled, House, UploadFilled, Upload, Refresh, Finished } from '@element-plus/icons-vue'
 
 import { formattedTime, formatFileSize, DownloadFile, deleteAction, shareSingle } from "../js/files"
 import { pathParts, flushPath, flushFileList, getPathFiles, paths, tableFile, tableRef, totalFile } from "../js/files"
-import { uploadList, headers, getSelectedTableData, search, searchContent } from "../js/files"
+import { uploadList, getSelectedTableData, search, searchContent } from "../js/files"
 import { onFileChange, handleExceed, handleRemove, beforeRemove, handleCellClick } from "../js/files"
+import { headers } from '../config'
 import { popref } from "../js/files"
 import onContextMenu from '../js/menu';
-import { showMenu, options, onContextMenu1, newDir, shareFromRight } from '../js/menu';
+import { showMenu, options, move, onContextMenu1, newDir, shareFromRight } from '../js/menu';
 
+(async () => {
+    if (useRoute().path === "/files") {
+        await getPathFiles()
+    }
+})()
 </script>
 
 <template>
@@ -127,6 +134,14 @@ import { showMenu, options, onContextMenu1, newDir, shareFromRight } from '../js
                 <span>上传文件</span>
             </context-menu-item>
             <!-- <context-menu-item label="refrash" @click="getPathFiles" class="center-content"> -->
+            <context-menu-item label="move" @click="move">
+                <el-button type="primary" size="small" circle>
+                    <el-icon>
+                        <Refresh />
+                    </el-icon>
+                </el-button>
+                <span>移动到</span>
+            </context-menu-item>
             <context-menu-item label="refrash" @click="getPathFiles">
                 <el-button type="primary" size="small" circle>
                     <el-icon>

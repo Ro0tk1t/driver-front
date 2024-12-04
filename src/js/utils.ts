@@ -25,7 +25,7 @@ export const get = async (path: string, datas: any): Promise<AxiosResponse<any, 
         const ret = await axios.get(path, datas)
         return ret
     } catch (err: any) {
-        console.log('832674932674832748329479')
+        console.log(err)
         if (err.response.status == 401) {
             ElMessage.error('请先登录')
             await resetToken()
