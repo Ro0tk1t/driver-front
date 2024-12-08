@@ -1,6 +1,7 @@
 import { ref, reactive } from 'vue'
 import { Column } from 'element-plus/lib/components/index.js';
 import type { MenuOptions } from '@imengyu/vue3-context-menu';
+import { Buffer } from 'buffer';
 
 import { get, post } from './utils';
 import { isDark, headers } from '../config'
@@ -60,6 +61,34 @@ export async function _getShares(id: string, pwd: string) {
         }
     } catch (err) {
         console.log(err)
+    }
+}
+
+export async function downloadShares(id: string) {
+    if (shareListTable.value.getSelectionRows().length === 0) {
+        ElMessage({ message: "请勾选要下载的文件", type: "warning" })
+        return
+    }
+    let tableData = shareListTable.value.getSelectionRows();
+    console.log(tableData)
+    console.log(id)
+    for (let i = 0; i < tableData.length; i++) {
+        const ret = await get(`/download/share/${id}`, {
+            params: { id: id, fid: tableData[i].id, filename: tableData[i].name, hash: tableData[i].hash },
+            headers: headers.value, responseType: 'blob'
+        })
+        let content = await ret.data.text()
+        let encodeData = JSON.parse(content).content
+        console.log(encodeData)
+        const decoded = Buffer.from(encodeData, 'base64')
+        // can not use atob, will overflow
+        const url = window.URL.createObjectURL(new Blob([decoded]));
+        const link = document.createElement('a');
+        console.log(url);
+        link.href = url;
+        link.setAttribute('download', tableData[i].name);
+        document.body.appendChild(link);
+        link.click();
     }
 }
 

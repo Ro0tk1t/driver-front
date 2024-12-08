@@ -4,7 +4,8 @@ import { useRoute } from "vue-router"
 import { ElTable, ElTableColumn } from "element-plus";
 import { Back, Search, FolderAdd, Share, MoreFilled, House, UploadFilled, Upload, Refresh, Finished } from '@element-plus/icons-vue'
 
-import { shareList, shareOfUser, getShares, shareOptions, showShareMenu, onContextMenuShare, getSelectedShareData, shareListTable, handleShareCellClick } from '../js/share';
+import { shareList, shareOfUser, getShares, shareOptions, showShareMenu, onContextMenuShare, getSelectedShareData } from '../js/share';
+import { downloadShares, shareListTable, handleShareCellClick } from '../js/share';
 //import { options, onContextMenuShare, showShareMenu, shareOption } from "../js/menu";
 import { formatFileSize } from "../js/files"
 
@@ -46,7 +47,7 @@ console.log(query);
                 </el-button>
                 <span>保存到</span>
             </context-menu-item>
-            <context-menu-item label="share" @click="">
+            <context-menu-item label="share" @click="downloadShares($route.params.id)">
                 <el-button type="primary" size="small" circle>
                     <el-icon>
                         <Share />
